@@ -22,7 +22,7 @@
 </head>
 <body>
 <canvas id="unity-canvas" tabindex="-1"></canvas>
-<script src="Build/AlexKornevGameBuild(0.5).loader.js"></script>
+<script src="Build/TGBot.loader.js"></script>
 <script>
   if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
     // Mobile device style: fill the whole browser client area with the game canvas:
@@ -36,9 +36,9 @@
   }
 
   createUnityInstance(document.querySelector("#unity-canvas"), {
-    dataUrl: "Build/AlexKornevGameBuild(0.5).data",
-    frameworkUrl: "Build/AlexKornevGameBuild(0.5).framework.js",
-    codeUrl: "Build/AlexKornevGameBuild(0.5).wasm",
+    dataUrl: "Build/TGBot.js",
+    frameworkUrl: "Build/TGBot.framework.js",
+    codeUrl: "Build/TGBot.wasm",
     streamingAssetsUrl: "StreamingAssets",
     companyName: "DefaultCompany",
     productName: "AlexKornevGame",
