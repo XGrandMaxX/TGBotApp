@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | TGBot</title>
-  </head>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unity WebGL Player | TGBot</title>
   <style>
     body {
       overflow: hidden;
@@ -19,31 +19,58 @@
       height: 100%;
       background: #231F20;
     }
-  </style>
-  <body style="text-align: center; padding: 0; border: 0; margin: 0;">
-    <canvas id="unity-canvas" width=385 height=600 tabindex="-1" style="width: 385px; height: 600px; background: #231F20"></canvas>
-    <script src="Build/TGBot.loader.js"></script>
-    <script>
-      function detectDevice(unityInstance) {
-        var userAgent = navigator.userAgent || navigator.vendor || window.opera;
-        var isMobile = /android|iPad|iPhone|iPod/i.test(userAgent);
 
-        //Отправляем информацию о типе устройства в Unity
-        unityInstance.SendMessage('DeviceLocator', 'ReceiveDeviceInfo', isMobile ? 'Mobile' : 'PC');
+    /* Адаптивные стили для мобильных устройств */
+    @media only screen and (max-width: 600px) {
+      #unity-canvas {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 9/16;
       }
+    }
+  </style>
+</head>
+<body style="text-align: center; padding: 0; border: 0; margin: 0;">
+<canvas id="unity-canvas" tabindex="-1"></canvas>
+<script src="Build/TGBot.loader.js"></script>
+<script>
+  function detectDevice(unityInstance) {
+    var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    var isMobile = /android|iPad|iPhone|iPod/i.test(userAgent);
 
-      createUnityInstance(document.querySelector("#unity-canvas"), {
-        dataUrl: "Build/TGBot.data",
-        frameworkUrl: "Build/TGBot.framework.js",
-        codeUrl: "Build/TGBot.wasm",
-        streamingAssetsUrl: "StreamingAssets",
-        companyName: "DefaultCompany",
-        productName: "TGBot",
-        productVersion: "1.1",
-      }).then(function(unityInstance) {
-        // Вызываем функцию для определения устройства и отправки информации в Unity
-        detectDevice(unityInstance);
-      });
-    </script>
-  </body>
+    // Отправляем информацию о типе устройства в Unity
+    unityInstance.SendMessage('DeviceLocator', 'ReceiveDeviceInfo', isMobile ? 'Mobile' : 'PC');
+  }
+
+  createUnityInstance(document.querySelector("#unity-canvas"), {
+    dataUrl: "Build/TGBot.data",
+    frameworkUrl: "Build/TGBot.framework.js",
+    codeUrl: "Build/TGBot.wasm",
+    streamingAssetsUrl: "StreamingAssets",
+    companyName: "DefaultCompany",
+    productName: "TGBot",
+    productVersion: "1.1",
+  }).then(function(unityInstance) {
+    // Вызываем функцию для определения устройства и отправки информации в Unity
+    detectDevice(unityInstance);
+  });
+
+  // Адаптивное изменение размера canvas для мобильных устройств
+  function resizeCanvas() {
+    var canvas = document.querySelector("#unity-canvas");
+    var aspectRatio = 9 / 16; // или другой аспект, который вам нужен
+
+    if (window.innerWidth < 600) {
+      canvas.style.height = (window.innerWidth / aspectRatio) + 'px';
+    } else {
+      canvas.style.height = '100%';
+    }
+  }
+
+  window.addEventListener('resize', resizeCanvas);
+  window.addEventListener('orientationchange', resizeCanvas);
+
+  resizeCanvas(); // Вызываем функцию при загрузке страницы
+</script>
+</body>
 </html>
