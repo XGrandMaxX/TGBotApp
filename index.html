@@ -27,12 +27,11 @@
       function detectDevice(unityInstance) {
         var userAgent = navigator.userAgent || navigator.vendor || window.opera;
         var isMobile = /android|iPad|iPhone|iPod/i.test(userAgent);
-          
-        // Отправляем информацию о типе устройства в Unity
-        unityInstance.SendMessage('GameManager', 'ReceiveDeviceInfo', isMobile ? 'Mobile' : 'PC');
+
+        //Отправляем информацию о типе устройства в Unity
+        unityInstance.SendMessage('DeviceLocator', 'ReceiveDeviceInfo', isMobile ? 'Mobile' : 'PC');
       }
 
-      // Инициализация Unity
       createUnityInstance(document.querySelector("#unity-canvas"), {
         dataUrl: "Build/TGBot.data",
         frameworkUrl: "Build/TGBot.framework.js",
@@ -41,13 +40,9 @@
         companyName: "DefaultCompany",
         productName: "TGBot",
         productVersion: "1.1",
-        // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
-        // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
-      }).then(function (unityInstance) {
-        // Вызываем detectDevice после успешной инициализации Unity
+      }).then(function(unityInstance) {
+        // Вызываем функцию для определения устройства и отправки информации в Unity
         detectDevice(unityInstance);
-      }).catch(function (message) {
-        console.error(message);
       });
     </script>
   </body>
