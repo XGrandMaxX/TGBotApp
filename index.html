@@ -67,8 +67,13 @@
     //Получаем параметры userId и userName из URL и отправляем их в Unity
     const userId = getQueryParameter('userId');
     const userName = getQueryParameter('userName');
+
     if (userId) {
-      unityInstance.SendMessage('ServiceLocator', 'ReceiveUserData', userId, userName);
+      unityInstance.SendMessage('ServiceLocator', 'ReceiveUserId', userId);
+    }
+
+    if (userName) {
+      unityInstance.SendMessage('ServiceLocator', 'ReceiveUserName', userName);
     }
   });
 </script>
