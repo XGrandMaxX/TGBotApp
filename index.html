@@ -47,6 +47,11 @@
     unityInstance.SendMessage('DeviceLocator', 'ReceiveDeviceInfo', isMobile ? 'Mobile' : 'PC');
   }
 
+  function getQueryParameter(name) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(name);
+  }
+
   createUnityInstance(document.querySelector("#unity-canvas"), {
     dataUrl: "Build/TGBot.data",
     frameworkUrl: "Build/TGBot.framework.js",
@@ -58,6 +63,15 @@
   }).then(function(unityInstance) {
     // Вызываем функцию для определения устройства и отправки информации в Unity
     detectDevice(unityInstance);
+
+    // Получаем параметр userId из URL и отправляем его в Unity
+    const userId = getQueryParameter('userId');
+    const userName = getQueryParameter('userName');
+    console.log(userId)
+    console.log(userName)
+    if (userId) {
+      unityInstance.SendMessage('ServiceLocator', 'ReceiveUserData', userId, userName);
+    }
   });
 </script>
 </body>
