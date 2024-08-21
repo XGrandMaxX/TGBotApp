@@ -44,7 +44,7 @@
     var isMobile = /android|iPad|iPhone|iPod/i.test(userAgent);
 
     // Отправляем информацию о типе устройства в Unity
-    unityInstance.SendMessage('DeviceLocator', 'ReceiveDeviceInfo', isMobile ? 'Mobile' : 'PC');
+    unityInstance.SendMessage('ServiceLocator', 'ReceiveDeviceInfo', isMobile ? 'Mobile' : 'PC');
   }
 
   function getQueryParameter(name) {
@@ -61,15 +61,14 @@
     productName: "TGBot",
     productVersion: "1.1",
   }).then(function(unityInstance) {
-    // Вызываем функцию для определения устройства и отправки информации в Unity
+    //Вызываем функцию для определения устройства и отправки информации в Unity
     detectDevice(unityInstance);
 
-    // Получаем параметр userId из URL и отправляем его в Unity
-    console.log("HUI HUI HUI HUI");
+    //Получаем параметры userId и userName из URL и отправляем их в Unity
     const userId = getQueryParameter('userId');
-    console.log("User ID from URL:", userId);
+    const userName = getQueryParameter('userName');
     if (userId) {
-      unityInstance.SendMessage('ServiceLocator', 'ReceiveUserData', userId);
+      unityInstance.SendMessage('ServiceLocator', 'ReceiveUserData', userId, userName);
     }
   });
 </script>
