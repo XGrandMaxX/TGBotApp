@@ -65,10 +65,11 @@
     detectDevice(unityInstance);
 
     //Получаем параметры userId и userName из URL и отправляем их в Unity
-    const userName = getQueryParameter('userName');
+    const userFirstName = getQueryParameter('userFirstName');
+    const userLastName = getQueryParameter('userLastName');
 
-    if (userName) {
-      unityInstance.SendMessage('ServiceLocator', 'ReceiveUserName', userName);
+    if (userFirstName && userLastName) {
+      unityInstance.SendMessage('ServiceLocator', 'ReceiveUserFirstName', userFirstName, userLastName);
     }
   });
 </script>
