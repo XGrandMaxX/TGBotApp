@@ -49,7 +49,7 @@
 
   function getQueryParameter(name) {
     const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(name);
+    return urlParams.get(name) || '';
   }
 
   createUnityInstance(document.querySelector("#unity-canvas"), {
@@ -69,7 +69,7 @@
     const userLastName = getQueryParameter('userLastName');
 
     if (userFirstName || userLastName) {
-      const userData = JSON.stringify([userFirstName, userLastName]);
+      const userData = JSON.stringify([userFirstName || '', userLastName || '']);
       unityInstance.SendMessage('ServiceLocator', 'ReceiveUserData', userData);
     }
   });
