@@ -68,7 +68,7 @@
     const userFirstName = getQueryParameter('userFirstName');
     const userLastName = getQueryParameter('userLastName');
 
-    if (userFirstName && userLastName) {
+    if (userFirstName || userLastName) {
       const userData = JSON.stringify([userFirstName, userLastName]);
       unityInstance.SendMessage('ServiceLocator', 'ReceiveUserData', userData);
     }
