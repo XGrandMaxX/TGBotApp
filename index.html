@@ -42,9 +42,15 @@
   function detectDevice(unityInstance) {
     var userAgent = navigator.userAgent || navigator.vendor || window.opera;
     var isMobile = /android|iPad|iPhone|iPod/i.test(userAgent);
+    var isIPhone = /iPhone/i.test(userAgent);
 
     // Отправляем информацию о типе устройства в Unity
+
     unityInstance.SendMessage('ServiceLocator', 'ReceiveDeviceInfo', isMobile ? 'Mobile' : 'PC');
+
+    if(isIPhone){
+      unityInstance.SendMessage('ServiceLocator', 'ReceiveIPhoneInfo', isIPhone);
+    }
   }
 
   function getQueryParameter(name) {
@@ -67,11 +73,10 @@
     //Получаем параметры userFirstName и userLastName из URL и отправляем их в Unity
     const userFirstName = getQueryParameter('userFirstName');
     const userLastName = getQueryParameter('userLastName');
+    const userLogin = getQueryParameter('userLogin');
 
-    if (userFirstName || userLastName) {
-      const userData = JSON.stringify([userFirstName || '', userLastName || '']);
-      unityInstance.SendMessage('ServiceLocator', 'ReceiveUserData', userData);
-    }
+    const userData = JSON.stringify([userFirstName || '', userLastName || '', userLogin || '']);
+    unityInstance.SendMessage('ServiceLocator', 'ReceiveUserData', userData);
   });
 </script>
 </body>
