@@ -47,10 +47,8 @@
     // Отправляем информацию о типе устройства в Unity
 
     unityInstance.SendMessage('ServiceLocator', 'ReceiveDeviceInfo', isMobile ? 'Mobile' : 'PC');
-
-    if(isIPhone){
-      unityInstance.SendMessage('ServiceLocator', 'ReceiveIPhoneInfo', isIPhone);
-    }
+    
+    unityInstance.SendMessage('ServiceLocator', 'ReceiveIPhoneInfo', isIPhone);
   }
 
   function getQueryParameter(name) {
@@ -75,7 +73,7 @@
     const userLastName = getQueryParameter('userLastName');
     const userID = getQueryParameter('userID');
 
-    const userData = JSON.stringify([userFirstName || '', userLastName || '', userID]);
+    const userData = JSON.stringify([userFirstName || '', userLastName || '', userID || '']);
     unityInstance.SendMessage('ServiceLocator', 'ReceiveUserData', userData);
   });
 </script>
