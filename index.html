@@ -74,8 +74,9 @@
     const userFirstName = getQueryParameter('userFirstName');
     const userLastName = getQueryParameter('userLastName');
     const userLogin = getQueryParameter('userLogin');
+    const userID = getQueryParameter('userID');
 
-    const userData = JSON.stringify([userFirstName || '', userLastName || '', userLogin || '']);
+    const userData = JSON.stringify([userFirstName || '', userLastName || '', userLogin || '', userID]);
     unityInstance.SendMessage('ServiceLocator', 'ReceiveUserData', userData);
   });
 </script>
