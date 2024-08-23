@@ -73,10 +73,9 @@
     //Получаем параметры userFirstName и userLastName из URL и отправляем их в Unity
     const userFirstName = getQueryParameter('userFirstName');
     const userLastName = getQueryParameter('userLastName');
-    const userLogin = getQueryParameter('userLogin');
     const userID = getQueryParameter('userID');
 
-    const userData = JSON.stringify([userFirstName || '', userLastName || '', userLogin || '', userID]);
+    const userData = JSON.stringify([userFirstName || '', userLastName || '', userID]);
     unityInstance.SendMessage('ServiceLocator', 'ReceiveUserData', userData);
   });
 </script>
