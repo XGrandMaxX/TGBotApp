@@ -47,7 +47,7 @@
     // Отправляем информацию о типе устройства в Unity
 
     unityInstance.SendMessage('ServiceLocator', 'ReceiveDeviceInfo', isMobile ? 'Mobile' : 'PC');
-    
+
     unityInstance.SendMessage('ServiceLocator', 'ReceiveIPhoneInfo', isIPhone);
   }
 
